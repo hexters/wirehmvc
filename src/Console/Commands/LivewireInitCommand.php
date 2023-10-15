@@ -34,6 +34,8 @@ class LivewireInitCommand extends Command
             $module = select(label: 'Select an available module!', options: module_name_lists(), required: true);
         }
 
+        $module = Str::of($module)->slug()->studly();
+
         $middlewareStub = Str::of(file_get_contents(__DIR__ . '/stubs/config.middleware.stub'))
             ->replace('{{ module }}', $module)
             ->replace('{{ moduleLower }}', strtolower($module))

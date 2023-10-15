@@ -41,22 +41,20 @@ class LivewireLayoutCommand extends LayoutCommand
         if (File::exists($layoutPath) && !$force) {
             $this->line("<fg=red;options=bold>View already exists:</> {$relativeLayoutPath}");
 
-            return false;
+            
+        } else {
+            $this->ensureDirectoryExists($layoutPath);
+
+            $result = File::copy($stubPath, $layoutPath);
+
+            if ($result) {
+                $this->line("<options=bold,reverse;fg=green> LAYOUT CREATED </> 🤙\n");
+                $this->line("<options=bold;fg=green>CLASS:</> {$relativeLayoutPath}");
+            }
         }
 
-        $this->ensureDirectoryExists($layoutPath);
 
-        $result = File::copy($stubPath, $layoutPath);
-
-        if ($result) {
-            $this->line("<options=bold,reverse;fg=green> LAYOUT CREATED </> 🤙\n");
-            $this->line("<options=bold;fg=green>CLASS:</> {$relativeLayoutPath}");
-        }
-
-        $middleware = select(label: "Do you want to create middleware for this layout?", options: ['yes', 'no'], default: 'yes');
-        if (in_array($middleware, ['yes'])) {
-            $this->createMiddleware($name);
-        }
+        $this->createMiddleware($name);
     }
 
     protected function createMiddleware(Stringable $name)
@@ -70,9 +68,9 @@ class LivewireLayoutCommand extends LayoutCommand
         $targetFile = module_path($name, "Http/Middleware/Layout{$name}Middlware.php");
         if (!file_exists($targetFile)) {
             file_put_contents($targetFile, $stub);
-            $this->components->info("Middleware [$targetFile] created successfully.");
+            $this->line("<options=bold;fg=green>CLASS:</> {$targetFile}");
         } else {
-            $this->components->error("Middleware [$targetFile] file already exists!");
+            $this->line("<fg=red;options=bold>Middleware already exists:</> {$targetFile}");
         }
     }
 }
