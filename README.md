@@ -1,6 +1,10 @@
 # Livewire HMVC (Beta)
 
-This package is a support package for the [hexters/laramodule](https://github.com/hexters/laramodule) package specifically made to integrate [hexters/laramodule](https://github.com/hexters/laramodule) with livewire version 3.
+[![Latest Stable Version](https://poser.pugx.org/hexters/wirehmvc/v/stable)](https://packagist.org/packages/hexters/wirehmvc)
+[![Total Downloads](https://poser.pugx.org/hexters/wirehmvc/downloads)](https://packagist.org/packages/hexters/wirehmvc)
+[![License](https://poser.pugx.org/hexters/wirehmvc/license)](https://packagist.org/packages/hexters/wirehmvc)
+
+This package is a support package for the [hexters/wirehmvc](https://github.com/hexters/wirehmvc) package specifically made to integrate [hexters/wirehmvc](https://github.com/hexters/wirehmvc) with livewire version 3.
 
 To install through Composer, by run the following command:
 
