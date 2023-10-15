@@ -1,0 +1,30 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
+use Modules\{{ module }}\Http\Middleware\LivewireSetup{{ module }}Middleware;
+use Modules\{{ module }}\Http\Middleware\Module{{ module }}StatusMiddleware;
+
+class RouteServiceProvider extends ServiceProvider
+{
+    
+    /**
+     * Define your route model bindings, pattern filters, etc.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->routes(function () {
+            Route::middleware(['web', Module{{ module }}StatusMiddleware::class, LivewireSetup{{ module }}Middleware::class])
+                ->namespace($this->namespace)
+                ->group(module_path('{{ moduleLower }}', 'routes/web.php'));
+        });
+    }
+
+}

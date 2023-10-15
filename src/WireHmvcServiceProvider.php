@@ -5,6 +5,7 @@ namespace Hexters\Wirehmvc;
 use Hexters\Wirehmvc\Console\Commands\LivewireAttributeCommand;
 use Hexters\Wirehmvc\Console\Commands\LivewireDeleteCommand;
 use Hexters\Wirehmvc\Console\Commands\LivewireFormCommand;
+use Hexters\Wirehmvc\Console\Commands\LivewireInitCommand;
 use Hexters\Wirehmvc\Console\Commands\LivewireLayoutCommand;
 use Hexters\Wirehmvc\Console\Commands\MakeLivewireCommand;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +41,7 @@ class WireHmvcServiceProvider extends ServiceProvider
                 LivewireAttributeCommand::class,
                 LivewireDeleteCommand::class,
                 LivewireLayoutCommand::class,
+                LivewireInitCommand::class,
             ]);
         }
     }
