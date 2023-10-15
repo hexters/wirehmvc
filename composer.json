@@ -1,0 +1,40 @@
+{
+    "name": "hexters/wirehmvc",
+    "description": "Package for laravel and livewwire with HMVC convept",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "Laravel",
+        "Laravel Module",
+        "Laravel Modular",
+        "Laravel HMVC",
+        "Laravel Package",
+        "Livewire",
+        "Livewire Module",
+        "Livewire Modular",
+        "Livewire HMVC",
+        "Livewire Package"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hexters\\Wirehmvc\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hexters\\Wirehmvc\\WireHmvcServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "authors": [
+        {
+            "name": "Asep",
+            "email": "hexters@gmail.com"
+        }
+    ],
+    "require": {
+        "livewire/livewire": "^3.0"
+    }
+}

@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ namespace }};
+
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Symfony\Component\HttpFoundation\Response;
+
+class Layout{{ module }}Middlware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+
+        /**
+         * Open Modules\{{ module }}\Providers\RouteServiceProvider class and add this class in the middleware options.
+         * E.g : Route::middleware(['web', Module{{ module }}StatusMiddleware::class, Layout{{ module }}Middlware::class])
+         */
+
+        Config::set('livewire.layout', '{{ moduleLower }}::components.layouts.app');
+
+        return $next($request);
+    }
+}
