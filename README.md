@@ -36,7 +36,7 @@ Don't forget to run the commands below
 ```bash
 composer dump-autoload
 ```
-## Setup
+## Create Module
 
 Follow the command below to create a module with livewire support.
 ```bash
