@@ -11,6 +11,32 @@ To install through Composer, by run the following command:
 ```bash
 composer require hexters/wirehmvc
 ```
+## Autoloading
+By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example :
+```json
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Modules\\": "Modules/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  }
+}
+```
+And make `Modules` directory in your root project folder
+
+```bash
+mkdir Modules
+```
+
+Don't forget to run the commands below
+
+```bash
+composer dump-autoload
+```
+## Setup
 
 Follow the command below to create a module with livewire support.
 ```bash
@@ -31,6 +57,11 @@ php artisan module:livewire-form ArticleForm --module=Blog
 php artisan module:livewire-layout --name=app --module=Blog
 php artisan module:livewire-delete Counter --module=Blog
 ```
+
+More complete commands can be seen at the link below.
+### [Artisan Documentation](https://github.com/hexters/laramodule#artisan)
+
+
 ## Rendering components
 
 Rendering components can only be done on components in the module folder, or you can see `Modules\Blog\Http\Middleware\LivewireSetupBlogMiddleware` class. I assume the module name is `Blog`!
