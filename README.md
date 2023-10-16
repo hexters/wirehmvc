@@ -38,9 +38,9 @@ composer dump-autoload
 ```
 ## Create Module
 
-Follow the command below to create a module with livewire support.
+Follow the command below to create a module, and select Livewire in preset option!
 ```bash
-php artisan module:make Blog --command=module:livewire-init
+php artisan module:make Blog
 ```
 You can also do this with an existing module, but remember that. The `route.php` file will be replaced by a new file.
 ```bash
