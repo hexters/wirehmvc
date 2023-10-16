@@ -8,10 +8,11 @@ use Illuminate\Support\Stringable;
 use Livewire\Features\SupportConsoleCommands\Commands\LayoutCommand;
 
 use function Laravel\Prompts\select;
+use function Laravel\Prompts\text;
 
 class LivewireLayoutCommand extends LayoutCommand
 {
-    protected $signature = 'module:livewire-layout {--force} {--stub= : If you have several stubs, stored in subfolders } {--module= : Target module name}';
+    protected $signature = 'module:livewire-layout {--force} {--stub= : If you have several stubs, stored in subfolders } {--name= : File name} {--module= : Target module name}';
 
     protected $description = 'Create new application layout files for specific modules';
 
@@ -26,9 +27,16 @@ class LivewireLayoutCommand extends LayoutCommand
 
         $name = Str::of($name)->slug()->studly();
 
+        $fileName = $this->option('name');
+        if (is_null($fileName)) {
+            $fileName = text(label: "What is the name of the layout file?", default: 'app');
+        }
+
+        $fileName = Str::of($fileName)->slug()->lower();
+
         $baseViewPath = module_path($name, 'Resources/views');
 
-        $layout = str('components.layouts.app');
+        $layout = str("components.layouts.{$fileName}");
 
         $layoutPath = $this->layoutPath($baseViewPath, $layout);
 
@@ -41,7 +49,7 @@ class LivewireLayoutCommand extends LayoutCommand
         if (File::exists($layoutPath) && !$force) {
             $this->line("<fg=red;options=bold>View already exists:</> {$relativeLayoutPath}");
 
-            
+            return true;
         } else {
             $this->ensureDirectoryExists($layoutPath);
 
@@ -53,24 +61,22 @@ class LivewireLayoutCommand extends LayoutCommand
             }
         }
 
+        $option = select(label: "Do you want to use this layout as the base layout for the Blog module?", default: 'No', options: ['Yes', 'No']);
 
-        $this->createMiddleware($name);
+        if (in_array($option, ['Yes'])) $this->overideSetupMiddleware($name, $fileName);
     }
 
-    protected function createMiddleware(Stringable $name)
+    protected function overideSetupMiddleware(Stringable $name, Stringable $fileName)
     {
         $namespace = "Modules\\{$name}\\Http\\Middleware";
         $stub = Str::of(file_get_contents(__DIR__ . '/stubs/layout.middleware.stub'))
             ->replace('{{ module }}', $name)
+            ->replace('{{ fileName }}', $fileName)
             ->replace('{{ moduleLower }}', $name->lower())
             ->replace('{{ namespace }}', $namespace);
 
-        $targetFile = module_path($name, "Http/Middleware/Layout{$name}Middlware.php");
-        if (!file_exists($targetFile)) {
-            file_put_contents($targetFile, $stub);
-            $this->line("<options=bold;fg=green>CLASS:</> {$targetFile}");
-        } else {
-            $this->line("<fg=red;options=bold>Middleware already exists:</> {$targetFile}");
-        }
+        $targetFile = module_path($name, "Http/Middleware/LivewireSetup{$name}Middleware.php");
+        file_put_contents($targetFile, $stub);
+        $this->line("<options=bold;fg=green>CLASS:</> {$targetFile}");
     }
 }

@@ -6,6 +6,7 @@ use Hexters\Wirehmvc\Features\ComponentParser;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportConsoleCommands\Commands\DeleteCommand;
+use PhpOption\Option;
 
 use function Laravel\Prompts\select;
 
@@ -44,11 +45,10 @@ class LivewireDeleteCommand extends DeleteCommand
         );
 
         if (!$force = $this->option('force')) {
-            $shouldContinue = $this->confirm(
-                "<fg=yellow>Are you sure you want to delete the following files?</>\n\n{$this->parser->relativeClassPath()}\n{$this->parser->relativeViewPath()}\n"
-            );
 
-            if (!$shouldContinue) {
+            $ask = select(label: "Are you sure you want to delete the following files?", options: ['Yes', 'No'], default: 'No', required: true);
+
+            if (in_array($ask, ['No'])) {
                 return;
             }
         }
