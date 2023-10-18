@@ -106,14 +106,23 @@ php artisan module:livewire-init --module=Blog
 php artisan module:make-livewire Counter --module=Blog
 php artisan module:livewire-attribute ArticleTileAttribute --module=Blog
 php artisan module:livewire-form ArticleForm --module=Blog
-php artisan module:livewire-layout --name=app --module=Blog
 php artisan module:livewire-delete Counter --module=Blog
 ```
 
 More complete commands can be seen at the link below.
 ### [Artisan Documentation](https://github.com/hexters/laramodule#artisan)
 
+### Layouting
+You need a layout for your livewire component, you can use the default layout from livewire and you can also create one specifically for your module.
 
+perintah default dari livewire
+```bash
+php artisan livesire:layout
+```
+Custom for specific modules
+```bash
+php artisan module:livewire-layout --name=app --module=Blog
+```
 ### Rendering components
 
 Rendering components can only be done on components in the module folder, or you can see `Modules\Blog\Http\Middleware\LivewireSetupBlogMiddleware` class. I assume the module name is `Blog`!
