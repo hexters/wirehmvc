@@ -35,7 +35,7 @@
         }
     ],
     "require": {
-        "livewire/livewire": "*",
+        "livewire/livewire": "^3.0",
         "hexters/laramodule": "^4.0"
     }
 }
