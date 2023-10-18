@@ -62,7 +62,7 @@ Manually add `LivewireHandleUpdateProvider` to the list of providers in the `app
 
 ### Important notes
 
-If you want to use the mount hook, make sure you run the mount for the parent class, see the example below.
+If you want to use the `mount()` hook, make sure you run the `parent::mount()` for the parent class, see the example below.
 
 ```php
 . . .
