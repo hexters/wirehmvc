@@ -12,8 +12,9 @@ To install through Composer, by run the following command:
 composer require hexters/wirehmvc
 ```
 
-# Installations
-## Autoloading
+# Installation
+
+### Autoloading
 By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example :
 ```json
 {
@@ -49,17 +50,17 @@ Manually add `LivewireHandleUpdateProvider` to the list of providers in the `app
     * Package Service Providers...
     */
 
-  Hexters\Wirehmvc\LivewireHandleUpdateProvider::class, // add here
+    Hexters\Wirehmvc\LivewireHandleUpdateProvider::class, // add here
 
     /*
     * Application Service Providers...
     */
-  App\Providers\AppServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
     
     . . . 
 ```
 
-## Important notes
+### Important notes
 
 If you want to use the mount hook, make sure you run the mount for the parent class, see the example below.
 
@@ -87,7 +88,7 @@ class Welcome extends Component
 . . .
 ```
 
-## Create Module
+### Create Module
 
 Follow the command below to create a module, and select Livewire in preset option!
 ```bash
@@ -99,7 +100,7 @@ php artisan module:livewire-init --module=Blog
 ```
 
 
-## Artisan 
+### Artisan 
 
 ```bash
 php artisan module:make-livewire Counter --module=Blog
@@ -113,6 +114,6 @@ More complete commands can be seen at the link below.
 ### [Artisan Documentation](https://github.com/hexters/laramodule#artisan)
 
 
-## Rendering components
+### Rendering components
 
 Rendering components can only be done on components in the module folder, or you can see `Modules\Blog\Http\Middleware\LivewireSetupBlogMiddleware` class. I assume the module name is `Blog`!

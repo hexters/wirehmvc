@@ -8,6 +8,7 @@ use Hexters\Wirehmvc\Console\Commands\LivewireDeleteCommand;
 use Hexters\Wirehmvc\Console\Commands\LivewireFormCommand;
 use Hexters\Wirehmvc\Console\Commands\LivewireInitCommand;
 use Hexters\Wirehmvc\Console\Commands\LivewireLayoutCommand;
+use Hexters\Wirehmvc\Console\Commands\LivewireMakeCommand;
 use Hexters\Wirehmvc\Console\Commands\MakeLivewireCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -48,6 +49,7 @@ class WireHmvcServiceProvider extends ServiceProvider
                 LivewireDeleteCommand::class,
                 LivewireLayoutCommand::class,
                 LivewireInitCommand::class,
+                LivewireMakeCommand::class,
             ]);
         }
     }
