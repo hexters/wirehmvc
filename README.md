@@ -11,6 +11,8 @@ To install through Composer, by run the following command:
 ```bash
 composer require hexters/wirehmvc
 ```
+
+# Installations
 ## Autoloading
 By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example :
 ```json
@@ -36,6 +38,55 @@ Don't forget to run the commands below
 ```bash
 composer dump-autoload
 ```
+
+Manually add `LivewireHandleUpdateProvider` to the list of providers in the `app.php` config file
+
+```php
+. . .
+
+'providers' => ServiceProvider::defaultProviders()->merge([
+    /*
+    * Package Service Providers...
+    */
+
+  Hexters\Wirehmvc\LivewireHandleUpdateProvider::class, // add here
+
+    /*
+    * Application Service Providers...
+    */
+  App\Providers\AppServiceProvider::class,
+    
+    . . . 
+```
+
+## Important notes
+
+If you want to use the mount hook, make sure you run the mount for the parent class, see the example below.
+
+```php
+. . .
+
+use Hexters\Wirehmvc\Component;
+
+. . .
+
+class Welcome extends Component
+{
+  
+  public function mount() {
+    parent::mount();
+
+    // Your code here...
+  }
+  
+  public function render()
+  {
+      return view('admin::livewire.welcome');
+  }
+
+. . .
+```
+
 ## Create Module
 
 Follow the command below to create a module, and select Livewire in preset option!
