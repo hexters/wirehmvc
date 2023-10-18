@@ -7,7 +7,7 @@ use Livewire\Component as BaseComponent;
 
 class Component extends BaseComponent
 {
-    public function rendering()
+    public function mount()
     {
         $this->setId([
             'id' => $this->getId(),
