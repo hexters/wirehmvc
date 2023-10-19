@@ -117,7 +117,7 @@ You need a layout for your livewire component, you can use the default layout fr
 
 perintah default dari livewire
 ```bash
-php artisan livesire:layout
+php artisan livewire:layout
 ```
 Custom for specific modules
 ```bash
