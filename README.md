@@ -115,7 +115,7 @@ More complete commands can be seen at the link below.
 ### Layouting
 You need a layout for your livewire component, you can use the default layout from livewire and you can also create one specifically for your module.
 
-perintah default dari livewire
+Default command from livewire
 ```bash
 php artisan livewire:layout
 ```
