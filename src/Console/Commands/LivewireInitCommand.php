@@ -76,5 +76,18 @@ class LivewireInitCommand extends Command
         $route = module_path($module, "routes/web.php");
         file_put_contents($route, $routeStube);
         $this->components->info("Route [$route] updated successfully");
+
+
+        $providerName = "{$module}ServiceProvider";
+        $provider = file_get_contents(__DIR__ . '/stubs/provider.load.stub');
+
+
+        $providerStub = Str::of($provider)
+            ->replace('{{ module }}', strtolower($module))
+            ->replace('{{ namespace }}', "Modules\\{$module}\\Providers")
+            ->replace('{{ class }}', $providerName);
+
+        $providerTarget = module_path($module, "Providers/{$providerName}.php");
+        file_put_contents($providerTarget, $providerStub);
     }
 }

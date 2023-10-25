@@ -65,3 +65,34 @@ More complete commands can be seen at the link below.
 ## Rendering components
 
 Rendering components can only be done on components in the module folder, or you can see `Modules\Blog\Http\Middleware\LivewireSetupBlogMiddleware` class. I assume the module name is `Blog`!
+
+In order for a component to be used in another module, you need to declare it first, open the provider in each of your modules, see the example below.
+
+```php
+
+. . .
+
+class BlogServiceProvider extends ServiceProvider
+{
+  . . .
+
+  protected function defineLivewireComponents()
+  {
+      return [
+          NabBar::class,
+
+          // OR
+
+          'nav-bar' => NavBar::class,
+      ];
+  }
+```
+Each declared component will be given a prefix according to the module name, so when calling it, you need to add a prefix in front of it, see the example below.
+
+```php
+
+<livewire:blog-nav-bar />
+
+```
+
+

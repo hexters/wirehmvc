@@ -1,0 +1,134 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Support\Str;
+use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+
+class {{ class }} extends ServiceProvider
+{
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/module.php',
+            '{{ module }}'
+        );
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerMigration();
+
+        $this->registerBladeView();
+
+        $this->registerTranslations();
+
+        $this->registerViewComponent();
+
+        $this->registerCommand();
+
+        $this->registerLivewireComponents();
+    }
+
+    protected function defineLivewireComponents()
+    {
+        return [
+            /**
+         * Here you can define livewire component with alias or without alias
+         * below example without alias
+         * call component with prefix `{{ module }}` like <livewire:{{ module }}-nav-bar />
+         */
+
+            // NavBar::class,
+
+            // ...
+
+            /**
+         * Below example with alias
+         * call component with prefix `{{ module }}` like <livewire:{{ module }}-nav-bar />
+         */
+
+            // 'nav-bar' => NavBar::class,
+        ];
+    }
+
+    /**
+     * Register list of command
+     *
+     * @return void
+     */
+    protected function registerCommand()
+    {
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                // InstallCommand::class,
+            ]);
+        }
+    }
+
+    /**
+     * Load view component
+     *
+     * @return void
+     */
+    protected function registerViewComponent()
+    {
+        $this->loadViewComponentsAs('{{ module }}', [
+            // Alert::class,
+        ]);
+    }
+
+    /**
+     * Register migration directory
+     *
+     * @return void
+     */
+    protected function registerMigration()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../Databases/Migrations');
+    }
+
+    /**
+     * Register blade view directory
+     *
+     * @return void
+     */
+    protected function registerBladeView()
+    {
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', '{{ module }}');
+    }
+
+    /**
+     * Register Translations directory
+     *
+     * @return void
+     */
+    protected function registerTranslations()
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', '{{ module }}');
+    }
+
+    protected function registerLivewireComponents()
+    {
+        foreach ($this->defineLivewireComponents() as $alias => $component) {
+            if (is_numeric($alias)) {
+                $name = Str::of(collect(explode('\\', $component))->pop())->snake('-');
+                Livewire::component("{{ module }}-{$name}", $component);
+            } else {
+                Livewire::component("{{ module }}-{$alias}", $component);
+            }
+        }
+    }
+}
