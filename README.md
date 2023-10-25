@@ -11,7 +11,10 @@ To install through Composer, by run the following command:
 ```bash
 composer require hexters/wirehmvc
 ```
-## Autoloading
+
+# Installation
+
+### Autoloading
 By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example :
 ```json
 {
@@ -36,7 +39,56 @@ Don't forget to run the commands below
 ```bash
 composer dump-autoload
 ```
-## Create Module
+
+Manually add `LivewireHandleUpdateProvider` to the list of providers in the `app.php` config file
+
+```php
+. . .
+
+'providers' => ServiceProvider::defaultProviders()->merge([
+    /*
+    * Package Service Providers...
+    */
+
+    Hexters\Wirehmvc\LivewireHandleUpdateProvider::class, // add here
+
+    /*
+    * Application Service Providers...
+    */
+    App\Providers\AppServiceProvider::class,
+    
+    . . . 
+```
+
+### Important notes
+
+If you want to use the `mount()` hook, make sure you run the `parent::mount()` for the parent class, see the example below.
+
+```php
+. . .
+
+use Hexters\Wirehmvc\Component;
+
+. . .
+
+class Welcome extends Component
+{
+  
+  public function mount() {
+    parent::mount();
+
+    // Your code here...
+  }
+  
+  public function render()
+  {
+      return view('admin::livewire.welcome');
+  }
+
+. . .
+```
+
+### Create Module
 
 Follow the command below to create a module, and select Livewire in preset option!
 ```bash
@@ -48,21 +100,30 @@ php artisan module:livewire-init --module=Blog
 ```
 
 
-## Artisan 
+### Artisan 
 
 ```bash
 php artisan module:make-livewire Counter --module=Blog
 php artisan module:livewire-attribute ArticleTileAttribute --module=Blog
 php artisan module:livewire-form ArticleForm --module=Blog
-php artisan module:livewire-layout --name=app --module=Blog
 php artisan module:livewire-delete Counter --module=Blog
 ```
 
 More complete commands can be seen at the link below.
 ### [Artisan Documentation](https://github.com/hexters/laramodule#artisan)
 
+### Layouting
+You need a layout for your livewire component, you can use the default layout from livewire and you can also create one specifically for your module.
 
-## Rendering components
+perintah default dari livewire
+```bash
+php artisan livewire:layout
+```
+Custom for specific modules
+```bash
+php artisan module:livewire-layout --name=app --module=Blog
+```
+### Rendering components
 
 Rendering components can only be done on components in the module folder, or you can see `Modules\Blog\Http\Middleware\LivewireSetupBlogMiddleware` class. I assume the module name is `Blog`!
 

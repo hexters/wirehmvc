@@ -9,7 +9,7 @@ use function Laravel\Prompts\select;
 
 class LivewireAttributeCommand extends AttributeCommand
 {
-    
+
     /**
      * The console command name.
      *
@@ -59,9 +59,7 @@ class LivewireAttributeCommand extends AttributeCommand
      */
     protected function getPath($name)
     {
-        
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-        
         return base_path("Modules/" . str_replace('\\', '/', $name) . '.php');
     }
 

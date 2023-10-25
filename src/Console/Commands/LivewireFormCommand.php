@@ -67,6 +67,19 @@ class LivewireFormCommand extends FormCommand
     }
 
     /**
+     * Get the destination class path.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+        
+        return base_path("Modules/" . str_replace('\\', '/', $name) . '.php');
+    }
+
+    /**
      * Get the root namespace for the class.
      *
      * @return string
