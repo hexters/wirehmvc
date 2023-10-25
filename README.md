@@ -127,7 +127,7 @@ php artisan module:livewire-layout --name=app --module=Blog
 
 Rendering components can only be done on components in the module folder, or you can see `Modules\Blog\Http\Middleware\LivewireSetupBlogMiddleware` class. I assume the module name is `Blog`!
 
-In order for a component to be used in another module, you need to declare it first, open the provider in each of your modules, see the example below.
+In order for a component to be used in another module, you need to register it first, open the provider in each of your modules, see the example below.
 
 ```php
 
