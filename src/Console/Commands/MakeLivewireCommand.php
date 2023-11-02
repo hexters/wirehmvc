@@ -23,13 +23,16 @@ class MakeLivewireCommand extends MakeCommand
         if (is_null($name)) {
             $name = select(label: 'Select an available module!', options: module_name_lists(), required: true);
         }
-        
+
         $name = Str::of($name)->slug()->studly();
-        $argumentName = Str::of($this->argument('name'));
+        $argumentName = Str::of($this->argument('name'))
+            ->replace('/', '.')
+            ->snake('-')
+            ->replace('.-', '.');
 
         Config::set('livewire.class_namespace', $this->overiteNamespace($name));
         Config::set('livewire.view_path', $this->overiteViewPath($name));
-        Config::set('livewire.view_name', $name->lower() . '::livewire.' . $argumentName->snake('-'));
+        Config::set('livewire.view_name', $name->lower() . '::livewire.' . $argumentName);
 
         $this->preHandle();
     }
